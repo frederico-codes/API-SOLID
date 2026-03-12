@@ -21,6 +21,7 @@ app.setErrorHandler((error, _request, reply) => {
   } else{
     // TODO: Log error to an external service like Sentry, Datadog, etc.
   }
+  
   return reply.status(500).send({ message: "Internal server error" });
 })
 

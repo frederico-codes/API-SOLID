@@ -1,9 +1,9 @@
-import { prisma } from "@/lib/prisma";
 import { PrismaUsersRepository } from "@/repositories/prisma/prisma-users-repository";
 import { UsersRepository } from "@/repositories/users-repository";
 import bcrypt from 'bcryptjs';
 const { hash } = bcrypt;
 import { UserAlreadyExistsError } from "./errors/user-already-exists-erro";
+import { User } from "@prisma/client";
 
 interface RegisterUseCaseRequest {
   name: string;
@@ -11,27 +11,34 @@ interface RegisterUseCaseRequest {
   password: string;
 }
 
-// solid
+interface RegisterUseCaseResponse {
+  user: User;
+}
 
-// D - Dependency Inversion Principle
 export class RegisterUseCase {
   constructor(private usersRepository: UsersRepository) {}
 
-  async execute({ name, email, password }: RegisterUseCaseRequest) {
+  async execute({ 
+    name, 
+    email, 
+    password 
+  }: RegisterUseCaseRequest) : Promise<RegisterUseCaseResponse> {
     const password_hash = await hash(password, 6);
 
     const userWithSameEmail = await this.usersRepository.findByEmail(email);
 
     if (userWithSameEmail) {
-      throw new UserAlreadyExistsError
-    }
+      throw new UserAlreadyExistsError()
+    }    
 
-    const prismaUsersRepository = new PrismaUsersRepository();
-
-    await prismaUsersRepository.create({
+    const  user = await this.usersRepository.create({
       name,
       email,
       password_hash,
     });
+    
+    return{ 
+      user
+    };
   }
 }
