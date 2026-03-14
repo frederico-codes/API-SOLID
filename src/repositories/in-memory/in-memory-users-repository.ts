@@ -10,6 +10,7 @@ export class InMemoryUsersRepository implements UsersRepository {
     if (!user) {
       return null;
     }
+    
     return user;
   }
 
