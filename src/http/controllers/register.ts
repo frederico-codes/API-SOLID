@@ -17,12 +17,7 @@ export async function register(request: FastifyRequest, reply: FastifyReply) {
     const usersRepository = new PrismaUsersRepository();
     const registerUseCase = new RegisterUseCase(usersRepository);
 
-<<<<<<< HEAD
-    await registerUseCase.execute({name,email, password });
-    
-=======
     await registerUseCase.execute({ name, email, password });
->>>>>>> f50d614 (Caso de uso de autenticação, Testes e controller de autenticação, Refatorando instâncias nos testes)
   } catch (error) {
     if (error instanceof UserAlreadyExistsError) {
       return reply.status(409).send({ message: error.message });

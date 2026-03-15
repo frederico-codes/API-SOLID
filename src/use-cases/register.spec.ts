@@ -1,9 +1,9 @@
-import { describe, expect, it } from "vitest";
+import { beforeEach, describe, expect, it } from "vitest";
 import { RegisterUseCase } from "./register";
 import { compare } from "bcryptjs";
 import { InMemoryUsersRepository } from "@/repositories/in-memory/in-memory-users-repository";
 import { UserAlreadyExistsError } from "./errors/user-already-exists-error";
-import { beforeEach } from "node:test";
+
 
 let usersRepository: InMemoryUsersRepository;
 let sut: RegisterUseCase;
@@ -47,21 +47,12 @@ describe("Register Use Case", () => {
       password: "123456",
     });
 
-<<<<<<< HEAD
-    await expect(() => 
-      registerUseCase.execute({
-          name: 'John Doe',
-          email,
-          password: '123456'
-      }), 
-=======
     await expect(() =>
       sut.execute({
         name: "John Doe",
         email,
         password: "123456",
       }),
->>>>>>> f50d614 (Caso de uso de autenticação, Testes e controller de autenticação, Refatorando instâncias nos testes)
     ).rejects.toBeInstanceOf(UserAlreadyExistsError);
   });
 });
