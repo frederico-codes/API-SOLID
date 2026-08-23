@@ -7,10 +7,10 @@
 
     // Environment Settings
     // See also https://aka.ms/tsconfig/module
-    "module": "esnext",
-    "moduleResolution": "node",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
     "target": "es2020",
-    "types": [],
+    "types": ["node"],
     "baseUrl": "./",
     "paths": {
       "@/*": ["./src/*"]
@@ -24,6 +24,7 @@
     "sourceMap": true,
     "declaration": true,
     "declarationMap": true,
+    "ignoreDeprecations": "6.0",
 
     // Stricter Typechecking Options
     "noUncheckedIndexedAccess": true,
